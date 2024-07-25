@@ -32,5 +32,5 @@ if settings.DEBUG:
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login',views.login),
-    path('regis',views.register),
+    path('register',views.register),
 ]
