@@ -10,7 +10,7 @@ def login(request):
       if Customer.objects.filter(Username=username,Password=password).exists():
          userdetail=Customer.objects.get(Username=request.POST['username'],Password=password)
          if userdetail.Password==request.POST['password']:
-            request.session['uid'] = userdetail.id 
+            request.session['uid']=userdetail.id 
             return HttpResponse("Succesfully login")
          else:
             return render (request,'login.html')
