@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,th,td{
+            border:  1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Image</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th></th>
+        </tr>
+        
+        <tr>
+            <td>{{data.Name}}</td>
+            <td>{{data.Email}}</td>
+            <td>{{data.Address}}</td>
+            <td>{{data.Image}}</td>
+            <td>{{data.Username}}</td>
+            <td>{{data.Password}}</td>
+            <td><a href="{% url 'edit' id=data.id %}">Edit</a></td>
+            
+        </tr>
+        
+    </table>
+
+</body>
+</html>

@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login',views.login),
     path('register',views.register),
+    path('user',views.userhome),
+    path('edit',views.edit,name='edit'),
 
 ]
 if settings.DEBUG:

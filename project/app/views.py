@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Customer
 
@@ -11,17 +11,13 @@ def login(request):
          userdetail=Customer.objects.get(Username=request.POST['username'],Password=password)
          if userdetail.Password==request.POST['password']:
             request.session['uid']=userdetail.id 
-            return HttpResponse("Succesfully login")
+            return redirect(userhome)
          else:
             return render (request,'login.html')
       else:
          return render(request,'login.html',{'message':'Invalid Username or password'})
    else:
-      return render(request,'login.html')      
-
-     
-     
-           
+      return render(request,'login.html') 
 
 
 def register(request):
@@ -43,3 +39,22 @@ def register(request):
       return HttpResponse("successfull")
     else:
        return render(request,'registration.html') 
+    
+
+
+def userhome(request):
+   tem=request.session['uid'] 
+   data =Customer.objects.get(id = tem)
+   return render(request,'userhome.html',{'data':data})   
+
+def edit(request,id):
+   data=Customer.objects.get(id=id) 
+   if request.method=='POST':
+      data.Name=request.POST['name']
+      data.Email=request.POST['email']
+      data.Address=request.POST['address']
+      data.Image=request.POST['image']
+      data.save()
+      return redirect(userhome)
+   else:
+      return render(request,'edit.html',{'data':data}) 
