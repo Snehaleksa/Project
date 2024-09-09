@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+    <a href="logout"><button>Logout</button></a>
     <table>
         <tr>
             <th>Name</th>
@@ -27,11 +28,12 @@
             <td>{{data.Email}}</td>
             <td>{{data.Address}}</td>
             <td>{{data.Image}}</td>
-            <td>{{data.Username}}</td>
+            <td><img src="{{data.Image.url }}" alt=""width="150px" height="150px"></td>
             <td>{{data.Password}}</td>
             <td><a href="{% url 'edit' id=data.id %}">Edit</a></td>
             
         </tr>
+        
         
     </table>
 

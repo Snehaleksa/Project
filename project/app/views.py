@@ -48,13 +48,42 @@ def userhome(request):
    return render(request,'userhome.html',{'data':data})   
 
 def edit(request,id):
-   data=Customer.objects.get(id=id) 
+  data=Customer.objects.get(id=id) 
+  if request.method=='POST':
+   data.Name=request.POST['name']
+   data.Email=request.POST['email']
+   data.Address=request.POST['address']
+   if 'image' in request.FILES:
+      data.Image =request.FILES['image']
+   data.save()
+   return redirect(userhome)
+  else:
+     return render(request,'edit.html',{'data':data})
+
+
+def logout(request):
+   session_keys=list(request.session.keys())
+   for key in session_keys:
+      del request.session[key]
+   return redirect(login)   
+  
+def login(request):
    if request.method=='POST':
-      data.Name=request.POST['name']
-      data.Email=request.POST['email']
-      data.Address=request.POST['address']
-      data.Image=request.POST['image']
-      data.save()
-      return redirect(userhome)
+      username=request.POST['username']
+      password=request.POST['password']
+      if Customer.objects.filter(Username=username,Password=password).exists():
+         userdetails=Customer.objects.get(Username=request.POST['username'],Password=password)
+         if userdetails.Password==request.POST['password']:
+            request.session['uid']=userdetails.id
+            return redirect(userhome)
+         else:
+            return render(request,'login.html')
+      else:
+         return render(request,'login.html',{'message':'Invalid username or password'}) 
    else:
-      return render(request,'edit.html',{'data':data}) 
+      return render(request,'login.html')      
+
+             
+
+
+

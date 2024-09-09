@@ -25,7 +25,9 @@ urlpatterns = [
     path('login',views.login),
     path('register',views.register),
     path('user',views.userhome),
-    path('edit',views.edit,name='edit'),
+    path('edit/<int:id>',views.edit,name='edit'),
+    path('logout',views.logout),
+
 
 ]
 if settings.DEBUG:
